@@ -15,6 +15,8 @@ namespace CapaPresentacionAdmin
                         "~/Scripts/fontawesome/all.min.js",
                         "~/Scripts/DataTables/jquery.dataTables.js",
                         "~/Scripts/DataTables/dataTable.responsive.js",
+                        "~/Scripts/loadingoverlay/loadingoverlay.min.js",
+                         "~/Scripts/sweetalert.min.js",
                         "~/Scripts/scripts.js"));
 
 
@@ -33,6 +35,7 @@ namespace CapaPresentacionAdmin
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/Site.css",
                 "~/Content/DataTables/css/jquery.dataTables.css",
+                 "~/Content/sweetalert.css",
                 "~/Content/DataTables/css/responsive.dataTables.css"
 
                 ));

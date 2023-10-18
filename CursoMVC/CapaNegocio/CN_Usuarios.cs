@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using CapaDatos;
@@ -21,18 +22,60 @@ namespace CapaNegocio
 
         public int Registrar(Usuario obj, out string Mensaje)
         {
-
+            int i = 0;
+            string campos = string.Empty;
+           
             Mensaje = string.Empty;
 
-            if (string.IsNullOrEmpty(obj.Nombre) || string.IsNullOrWhiteSpace(obj.Nombre))
+            if (string.IsNullOrEmpty(obj.Nombre) || string.IsNullOrWhiteSpace(obj.Nombre))   
+            { 
+                if (i >= 1)
+                {
+                    i = i + 1;
+                    campos = campos + "Nombre,";
+                }
+                else
+                {
+                    i = i + 1;
+                    Mensaje = "El Nombre del usuario no puede ser vacio";
+                    campos = "Nombre, ";
+                }
+
+            }            
+            if (string.IsNullOrEmpty(obj.Apellidos) || string.IsNullOrWhiteSpace(obj.Apellidos))
             {
-                Mensaje = "El nombre del usuario no puede ser vavio";
-            } else if (string.IsNullOrEmpty(obj.Apellidos) || string.IsNullOrWhiteSpace(obj.Apellidos))
+                if(i >= 1)
+                {
+                    i = i + 1;
+                    campos = campos + "Apellidos, ";
+                }
+                else
+                {
+                    i = i + 1;
+                    Mensaje = "El Apellido del usuario no puede ser vacio";
+                    campos = campos + "Apellidos, ";
+                }
+
+            } 
+            if (string.IsNullOrEmpty(obj.Correo) || string.IsNullOrWhiteSpace(obj.Correo))
             {
-                Mensaje = "Los Apellidos del usuario no puede ser vavio";
-            } else if (string.IsNullOrEmpty(obj.Correo) || string.IsNullOrWhiteSpace(obj.Correo))
+                if (i >= 1)
+                {
+                    i = i + 1;
+                    campos = campos + " Correo";
+                }
+               else
+                {
+                    i = i + 1;
+                    Mensaje = "El Correo del usuario no puede ser vacio";
+                    campos = campos + " Correo";
+                }
+
+            }
+
+            if(i >= 2)
             {
-                Mensaje = "El Correo del usuario no puede ser vavio";
+                Mensaje = "Favor de llenar los campos de " + campos;
             }
 
             if (string.IsNullOrEmpty(Mensaje))
@@ -49,27 +92,65 @@ namespace CapaNegocio
          
         }
 
-
         public bool Editar(Usuario obj, out string Mensaje)
         {
+            int i = 0;
+            string campos = string.Empty;
+
             Mensaje = string.Empty;
 
             if (string.IsNullOrEmpty(obj.Nombre) || string.IsNullOrWhiteSpace(obj.Nombre))
+
             {
-                Mensaje = "El nombre del usuario no puede ser vavio";
+                if (i >= 1)
+                {
+                    i = i + 1;
+                    campos = campos + "Nombre,";
+                }
+                else
+                {
+                    i = i + 1;
+                    Mensaje = "El Nombre del usuario no puede ser vacio";
+                    campos = "Nombre, ";
+                }
             }
-            else if (string.IsNullOrEmpty(obj.Apellidos) || string.IsNullOrWhiteSpace(obj.Apellidos))
+            if (string.IsNullOrEmpty(obj.Apellidos) || string.IsNullOrWhiteSpace(obj.Apellidos))
             {
-                Mensaje = "Los Apellidos del usuario no puede ser vavio";
+                if (i >= 1)
+                {
+                    i = i + 1;
+                    campos = campos + "Apellidos, ";
+                }
+                else
+                {
+                    i = i + 1;
+                    Mensaje = "El Apellido del usuario no puede ser vacio";
+                    campos = campos + "Apellidos, ";
+                }
             }
-            else if (string.IsNullOrEmpty(obj.Correo) || string.IsNullOrWhiteSpace(obj.Correo))
+            if (string.IsNullOrEmpty(obj.Correo) || string.IsNullOrWhiteSpace(obj.Correo))
             {
-                Mensaje = "El Correo del usuario no puede ser vavio";
+                if (i >= 1)
+                {
+                    i = i + 1;
+                    campos = campos + " Correo";
+                }
+                else
+                {
+                    i = i + 1;
+                    Mensaje = "El Correo del usuario no puede ser vacio";
+                    campos = campos + " Correo";
+                }
+
+            }
+            if (i >= 2)
+            {
+                Mensaje = "Favor de llenar los campos de " + campos;
             }
 
             if (string.IsNullOrEmpty(Mensaje))
             {
-                return objCapaDato.Editar(obj, out Mensaje):
+                return objCapaDato.Editar(obj, out Mensaje);
             }
             else
             {
@@ -81,9 +162,5 @@ namespace CapaNegocio
         {
             return objCapaDato.Eliminar(id, out Mensaje);
         }
-
-
-
-
-        }
+    }
 }
