@@ -165,6 +165,7 @@
             $("#FormModal").modal("show");
         }
 
+        //Abrir modal al editar
         $("#tablaUsuarios tbody").on("click", '.dtnEditar', function () {
             FilaSelec = $(this).closest("tr");
             var data = tabladata.row(FilaSelec).data();
@@ -173,6 +174,7 @@
 
         })
 
+        //Boton Crear nuevo y Editar
         function Guardar() {
 
             var Usuario = {
@@ -257,7 +259,7 @@
 
         }
 
-
+        //Boton Grid Eliminar
         $("#tablaUsuarios tbody").on("click", '.btn-eliminar', function () {
             var UsuarioSeleccionado = $(this).closest("tr");
             var data = tabladata.row(UsuarioSeleccionado).data();
