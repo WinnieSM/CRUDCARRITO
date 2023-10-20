@@ -44,7 +44,9 @@
   <ItemGroup>
     <Compile Include="CD_Categoria.cs" />
     <Compile Include="CD_Usuarios.cs" />
+    <Compile Include="CD_Marca.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="ICatalogos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

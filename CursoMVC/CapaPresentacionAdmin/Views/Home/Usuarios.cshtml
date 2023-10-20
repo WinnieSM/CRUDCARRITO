@@ -241,22 +241,6 @@
                 }
             })
 
-
-
-
-            //if (Usuario.IdUsuario == 0) {
-
-            //    tabladata.row.add(Usuario).draw(false);
-
-            //} else {
-
-            //    tabladata.row(FilaSelec).data(Usuario).draw(false);
-
-
-            //}
-
-            //$("#FormModal").modal("hide");
-
         }
 
         //Boton Grid Eliminar
@@ -283,8 +267,8 @@
                         dataType: "json",
                         contentType: "application/json; charset=urf-8",
                         success: function (data) {
-                            debugger;
                             if (data.resultado) {
+                                swal("Eliminado!", "Se ha eliminado el registro correctamente.", "success");
                                 tabladata.row(UsuarioSeleccionado).remove().draw();
                             } else {
                                 swal("No se pudo eliminar", data.mensaje, "error")

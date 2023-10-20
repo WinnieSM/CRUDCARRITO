@@ -14,5 +14,7 @@ namespace CapaEntidad
 
         public bool Activo { get; set; }
 
+        public string FechaRegistro { get; set; }
+
     }
 }

@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Categoria</h2>
+<h2 class="mt-2">Categoria</h2>
 <ol class="breadcrumb mb-4 mt-4">
     <li class="breadcrumb-item"><a href="index.html">Mantenimiento</a></li>
     <li class="breadcrumb-item active">Categorias</li>
@@ -153,7 +153,7 @@
 
         })
 
-          //Boton Crear nuevo y Editar
+        //Boton Crear nuevo y Editar
         function Guardar() {
 
         var Categoria = {
@@ -221,7 +221,8 @@
 
   }
 
-            //Boton Grid Eliminar
+        //Boton Grid Eliminar
+        
         $("#tablaCategorias tbody").on("click", '.btn-eliminar', function () {
             var CategoriaSeleccionado = $(this).closest("tr");
             var data = tabladata.row(CategoriaSeleccionado).data();
@@ -237,7 +238,6 @@
                 closeOnConfirm: true
             },
                 function () {//cuando se presiona si
-
                     jQuery.ajax({
                         url: '@Url.Action("EliminarCategoria", "Mantenedor")',
                         type: "POST",
@@ -245,8 +245,8 @@
                         dataType: "json",
                         contentType: "application/json; charset=urf-8",
                         success: function (data) {
-                            debugger;
                             if (data.resultado) {
+                                swal("Eliminado!", "Se ha eliminado el registro correctamente.", "success");
                                 tabladata.row(CategoriaSeleccionado).remove().draw();
                             } else {
                                 swal("No se pudo eliminar", data.mensaje, "error")

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,19 +10,18 @@ using CapaEntidad;
 
 namespace CapaNegocio
 {
-    public  class CN_Categoria
+    public class CN_Marca
     {
 
-        private CD_Categoria objCapaDat = new CD_Categoria();
+        private CD_Marca objCapaDatos = new CD_Marca();
 
-        public List<Categoria> Listar()
+        public List<Marca> Listar()
         {
-            return objCapaDat.Listar();
+            return objCapaDatos.ObtenerTodos();
         }
 
-        public int Registrar(Categoria obj, out string Mensaje)
+        public int Registrar(Marca obj, out string Mensaje)
         {
-
             Mensaje = string.Empty;
 
             if (string.IsNullOrEmpty(obj.Descripcion) || string.IsNullOrWhiteSpace(obj.Descripcion))
@@ -32,17 +32,15 @@ namespace CapaNegocio
 
             if (string.IsNullOrEmpty(Mensaje))
             {
-                return objCapaDat.Registrar(obj, out Mensaje);
+                return objCapaDatos.Registrar(obj, out Mensaje);
             }
             else
             {
                 return 0;
             }
         }
-
-        public bool Editar(Categoria obj, out string Mensaje)
+        public bool Editar(Marca obj, out string Mensaje)
         {
-            string campos = string.Empty;
 
             Mensaje = string.Empty;
 
@@ -54,7 +52,7 @@ namespace CapaNegocio
 
             if (string.IsNullOrEmpty(Mensaje))
             {
-                return objCapaDat.Editar(obj, out Mensaje);
+                return objCapaDatos.Editar(obj, out Mensaje);
             }
             else
             {
@@ -64,7 +62,8 @@ namespace CapaNegocio
 
         public bool Eliminar(int id, out string Mensaje)
         {
-            return objCapaDat.Eliminar(id, out Mensaje);
+            return objCapaDatos.Eliminar(id, out Mensaje);
         }
+
     }
 }
