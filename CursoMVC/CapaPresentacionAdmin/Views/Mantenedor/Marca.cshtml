@@ -11,7 +11,7 @@
     <li class="breadcrumb-item active">Marca</li>
 </ol>
 
-<div class="card">
+<div id="card" class="card" >
     <div class="card-header">
         <i class="fas fa-table me-1"></i> Lista de Marcas
     </div>
@@ -86,7 +86,9 @@
 
         var tabladata;
         var FilaSelec;
+        var DateF;
         CargarDatos();
+        ObtenerFecha();
 
         function CargarDatos() {
              tabladata = $("#tablaMarca").DataTable({
@@ -157,6 +159,7 @@
                 Activo: $("#cboactivo").val() == 1 ? true: false,
                 Descripcion: $("#txtDescripcion").val(),
             }
+
             debugger;
             jQuery.ajax({
                 url: '@Url.Action("GuardarMarca", "Mantenedor")',
@@ -168,14 +171,11 @@
                     debugger;
                     $(".modal-body").LoadingOverlay("hide");
                     //NUEVA MARCA
-                    if (Marca.IdMarca == 0) {
-                        DestTable();
-                        CargarDatos();
-                        //tabladata.row.add(Marca).draw(false); //aqui pinta primera vez
+                    Marca.FechaRegistro = DateF;
+                    if (Marca.IdMarca == 0) { 
+                        tabladata.row.add(Marca).draw(false); //aqui pinta primera vez
                         console.log(data);
                         if (data.resultado != 0) {
-                            debugger;
-                            console.log(data);
                             Marca.IdMarca = data.resultado;
                             tabladata.row(FilaSelec).data(Marca).draw(false);
                             $("#FormModal").modal("hide");
@@ -190,11 +190,11 @@
                     else { //MARCA EDITAR
                         debugger;
                         if (data.resultado) {
-            tabladata.row(FilaSelec).data(Marca).draw(false);
-            FilaSelec = null;
-            $("#FormModal").modal("hide");
+                            tabladata.row(FilaSelec).data(Marca).draw(false);
+                            FilaSelec = null;
+                            $("#FormModal").modal("hide");
 
-        }
+                         }
                         else {
                             $(".modal-body").LoadingOverlay("hide");
                             $("#MensajeError").text(data.mensaje);
@@ -260,29 +260,29 @@
         })
 
 
-        function DestTable() {
-            var table = $('#tablaMarca').DataTable();
-            table.clear().draw();
 
-            var table = $('#tablaMarca').DataTable({
+        function ObtenerFecha() {
+            const date = new Date();
+            const Year = date.getFullYear();
+            var Month = date.getMonth();
+            Month = Month + 1;
+            const Day = date.getDate();
 
-                data: dataSet,
-                columns: [
-                    {
-                        "className": 'display cell-border',
-                        "orderable": false,
-                        "data": null,
-                        "defaultContent": '',
-                        "Style": 'width: 100%'
-                    },
-                    { title: "Descripcion" },
-                    { title: "Activo" },
-                    { title: "Fecha de registro" },
-                    { title: " " }
-                ]
-            });
+            const Hour = date.getHours();
+            const Minute = date.getMinutes();
+            var Second = date.getSeconds();
+            var dt = (Hour >= 12) ? " p. m." : " a. m."
+
+            if (Minute <= 9) {
+                Second = "0" + Second;
+            }
+            
+            DateF = (Day + "/" + Month + "/" + Year + " " + Hour + ":" + Minute + ":" + Second + dt);
 
         }
+
+
+        
 
     </script>
 
