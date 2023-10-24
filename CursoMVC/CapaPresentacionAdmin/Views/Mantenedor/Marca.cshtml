@@ -11,7 +11,7 @@
     <li class="breadcrumb-item active">Marca</li>
 </ol>
 
-<div id="card" class="card" >
+<div id="card" class="card">
     <div class="card-header">
         <i class="fas fa-table me-1"></i> Lista de Marcas
     </div>
@@ -82,23 +82,43 @@
 
 @section scripts{
 
+    <script src="https://code.jquery.com/jquery-3.7.0.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap4.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js" type="text/javascript"></script>
+    
+    @*<script src="" type="text/javascript"></script>
+    <script src="" type="text/javascript"></script>*@
+
+
     <script>
 
         var tabladata;
         var FilaSelec;
         var DateF;
+        table = $('#tablaMarca').DataTable();
         CargarDatos();
         ObtenerFecha();
 
+
         function CargarDatos() {
+             table.destroy();
              tabladata = $("#tablaMarca").DataTable({
                 responsive: true,
-                ordering: false,
+                 ordering: false,
+                 buttons: ['copy', 'excel', 'pdf', 'print'],
                 "ajax": {
                 url: '@Url.Action("ListarMarca", "Mantenedor")',
                 type: "GET",
                 datatype: "json"
-                },
+                 },
                 "columns": [
                 {"data": "Descripcion" },
                 {
@@ -113,7 +133,7 @@
                 {"data": "FechaRegistro" },
                 {
                     "defaultContent": '<button type="button" class=" btn btn-primary btn-sm dtnEditar"><i class="fas fa-pen"></i></button>'
-                + '<button type="button" class="btn btn-danger btn-sm ms-2 btn-eliminar"><i class="fas fa-trash me-1"></i></button>',
+                                    + '<button type="button" class="btn btn-danger btn-sm ms-2 btn-eliminar"><i class="fas fa-trash me-1"></i></button>',
                 "orderable": false,
                 "searchable": false,
                 "width": "90px"
@@ -122,8 +142,14 @@
                 ],
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
-                }
-            });
+                 },
+                 lengthChange: false
+                 
+             });
+
+            tabladata.buttons().container()
+                .appendTo('#example_wrapper .col-md-6:eq(0)');
+            //ExportTable();
         }
 
         function abrirModal(json) {
@@ -158,9 +184,9 @@
                 IdMarca: $("#txtid").val(),
                 Activo: $("#cboactivo").val() == 1 ? true: false,
                 Descripcion: $("#txtDescripcion").val(),
+                FechaRegistro: " "
             }
 
-            debugger;
             jQuery.ajax({
                 url: '@Url.Action("GuardarMarca", "Mantenedor")',
                 type: "POST",
@@ -168,29 +194,23 @@
                 dataType: "json",
                 contentType: "application/json; charser=utf-8",
                 success: function (data) {
-                    debugger;
                     $(".modal-body").LoadingOverlay("hide");
                     //NUEVA MARCA
-                    Marca.FechaRegistro = DateF;
-                    if (Marca.IdMarca == 0) { 
-                        tabladata.row.add(Marca).draw(false); //aqui pinta primera vez
-                        console.log(data);
-                        if (data.resultado != 0) {
-                            Marca.IdMarca = data.resultado;
-                            tabladata.row(FilaSelec).data(Marca).draw(false);
+                    //Marca.FechaRegistro = DateF;
+                    if (Marca.IdMarca == 0) {
+                        DestroyTable();
+                        if (data.resultado != 0) { // resultado es = al Id del nuevo registro
                             $("#FormModal").modal("hide");
                         }
-                        else {
+                        else { //Entra si no esta guardando bien el Id del nuevo registro
                             $(".modal-body").LoadingOverlay("hide");
                             $("#MensajeError").text(data.mensaje);
                             $("#MensajeError").show();
                         }
-                        
                     }
                     else { //MARCA EDITAR
-                        debugger;
                         if (data.resultado) {
-                            tabladata.row(FilaSelec).data(Marca).draw(false);
+                            DestroyTable();
                             FilaSelec = null;
                             $("#FormModal").modal("hide");
 
@@ -217,11 +237,9 @@
             }) //jquery
         }
 
-
         //Boton Grid Eliminar
-
         $("#tablaMarca tbody").on("click", '.btn-eliminar', function () {
-            var IdMarcaSeleccionado = $(this).closest("tr");
+            var MarcaSeleccionado = $(this).closest("tr");
             var data = tabladata.row(MarcaSeleccionado).data();
 
             swal({
@@ -260,7 +278,7 @@
         })
 
 
-
+        //OTRAS FUNCIONES
         function ObtenerFecha() {
             const date = new Date();
             const Year = date.getFullYear();
@@ -276,13 +294,32 @@
             if (Minute <= 9) {
                 Second = "0" + Second;
             }
-            
+
             DateF = (Day + "/" + Month + "/" + Year + " " + Hour + ":" + Minute + ":" + Second + dt);
 
         }
 
+        function DestroyTable() {
 
-        
+            table.destroy();
+            CargarDatos();
+        }
+
+        function ExportTable() {
+            var table = $('#tablaMarca').DataTable({
+                lengthChange: false,
+                buttons: [
+                    {
+                        extend: 'csv',
+                        split: ['pdf', 'excel'],
+                    },
+                    'colvis'
+                ]
+            });
+
+            table.buttons().container()
+                .appendTo('#example_wrapper .col-md-6:eq(0)');
+        }
 
     </script>
 
