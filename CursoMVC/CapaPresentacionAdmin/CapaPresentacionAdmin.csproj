@@ -351,6 +351,9 @@
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\DataTablesExport\jszip.min.js" />
+    <Content Include="Scripts\DataTablesExport\pdfmake.min.js" />
+    <Content Include="Scripts\DataTablesExport\vfs_fonts.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
