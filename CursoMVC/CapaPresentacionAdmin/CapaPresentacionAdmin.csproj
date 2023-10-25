@@ -148,6 +148,8 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\brands.css" />
     <Content Include="Content\brands.min.css" />
+    <Content Include="Content\DataTablesExport\buttons.dataTables.min.css" />
+    <Content Include="Content\DataTablesExport\jquery.dataTables.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
@@ -311,6 +313,7 @@
     <Content Include="Content\regular.min.css" />
     <Content Include="Content\solid.css" />
     <Content Include="Content\solid.min.css" />
+    <Content Include="Content\Styles\StylesP.css" />
     <Content Include="Content\svg-with-js.css" />
     <Content Include="Content\svg-with-js.min.css" />
     <Content Include="Content\sweetalert.css" />
@@ -351,8 +354,14 @@
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\DataTablesExport\buttons.html5.min.js" />
+    <Content Include="Scripts\DataTablesExport\buttons.print.min.js" />
+    <Content Include="Scripts\DataTablesExport\dataTables.buttons.min.js" />
+    <Content Include="Scripts\DataTablesExport\jquery-3.7.0.js" />
+    <Content Include="Scripts\DataTablesExport\jquery.dataTables.min.js" />
     <Content Include="Scripts\DataTablesExport\jszip.min.js" />
     <Content Include="Scripts\DataTablesExport\pdfmake.min.js" />
+    <Content Include="Scripts\DataTablesExport\szip.min.js" />
     <Content Include="Scripts\DataTablesExport\vfs_fonts.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />

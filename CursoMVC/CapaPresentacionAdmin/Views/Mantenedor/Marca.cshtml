@@ -82,20 +82,8 @@
 
 @section scripts{
 
-    <script src="https://code.jquery.com/jquery-3.7.0.js" type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap4.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js" type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js" type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js" type="text/javascript"></script>
-    
-    @*<script src="" type="text/javascript"></script>
-    <script src="" type="text/javascript"></script>*@
+
+
 
 
     <script>
@@ -112,8 +100,43 @@
              table.destroy();
              tabladata = $("#tablaMarca").DataTable({
                 responsive: true,
-                 ordering: false,
-                 buttons: ['copy', 'excel', 'pdf', 'print'],
+                ordering: false,
+                lengthChange: false,
+                 dom: 'Bfrtip',
+                 buttons: [{
+                     //Botón para Excel
+                     extend: 'excel',
+                     footer: true,
+                     title: 'Archivo',
+                     filename: 'Export_File',
+
+                     //Aquí es donde generas el botón personalizado
+                     text: '<button class="btn btn-success">Exportar a Excel <i class="fas fa-file-excel"></i></button>'
+                 },
+                 //Botón para PDF
+                 {
+                     extend: 'pdf',
+                     footer: true,
+                     title: 'Archivo PDF',
+                     filename: 'Export_File_pdf',
+                     text: '<button class="btn btn-danger">Exportar a PDF <i class="far fa-file-pdf"></i></button>'
+                     },
+                     {
+                         extend: 'copy',
+                         footer: true,
+                         title: 'Archivo PDF',
+                         text: '<button class="btn btn-info">Copiar <i class="far fa-file-pdf"></i></button>'
+                         exportOptions: {
+                             modifier: {
+                                 page: 'current'
+                             }
+                         }
+
+                     }
+
+
+                 ],
+/*                buttons: ['copy', 'excel', 'pdf', 'print'],*/
                 "ajax": {
                 url: '@Url.Action("ListarMarca", "Mantenedor")',
                 type: "GET",
@@ -142,13 +165,12 @@
                 ],
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
-                 },
-                 lengthChange: false
-                 
+                 }
+
              });
 
             tabladata.buttons().container()
-                .appendTo('#example_wrapper .col-md-6:eq(0)');
+                .appendTo('#example_wrapper .col-md-6:eq(0) .btn');
             //ExportTable();
         }
 

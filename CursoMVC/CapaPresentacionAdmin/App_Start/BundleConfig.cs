@@ -16,9 +16,18 @@ namespace CapaPresentacionAdmin
                         "~/Scripts/DataTables/jquery.dataTables.js",
                         "~/Scripts/DataTables/dataTable.responsive.js",
                         "~/Scripts/loadingoverlay/loadingoverlay.min.js",
-                        "~/Scripts/sweetalert.min.js",                     
-                        "~/Scripts/scripts.js"));
-
+                        "~/Scripts/sweetalert.min.js",
+                        "~/Scripts/scripts.js",
+                        //DataTableExport
+                         "~/Scripts/DataTablesExport/jquery-3.7.0.js",
+                         "~/Scripts/DataTablesExport/jquery.dataTables.min.js",
+                         "~/Scripts/DataTablesExport/dataTables.buttons.min.js",
+                         "~/Scripts/DataTablesExport/jszip.min.js",
+                         "~/Scripts/DataTablesExport/pdfmake.min.js",
+                         "~/Scripts/DataTablesExport/vfs_fonts.js",
+                          "~/Scripts/DataTablesExport/buttons.html5.min.js",
+                          "~/Scripts/DataTablesExport/buttons.print.min.js"
+                        ));
 
 
             //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -36,7 +45,12 @@ namespace CapaPresentacionAdmin
                 "~/Content/Site.css",
                 "~/Content/DataTables/css/jquery.dataTables.css",
                  "~/Content/sweetalert.css",
-                "~/Content/DataTables/css/responsive.dataTables.css"
+                "~/Content/DataTables/css/responsive.dataTables.css",
+                "~/Content/DataTablesExport/",
+                //DataTableExport
+                "~/Content/DataTablesExport/buttons.dataTables.min.css",
+                "~/Content/DataTablesExport/jquery.dataTables.min.css",
+                "~/Content/Styles/StylesP.css"
 
                 ));
         }
