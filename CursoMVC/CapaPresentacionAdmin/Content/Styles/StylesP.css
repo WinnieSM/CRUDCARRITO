@@ -1,0 +1,17 @@
+﻿body {
+}
+
+
+
+div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button {
+    padding: 0px !important;
+    border: 0px solid rgba(0, 0, 0, 0.3);
+}
+
+div.dt-buttons > .dt-button, div.dt-buttons > div.dt-button-split .dt-button:hover {
+    border: 0px solid rgba(0, 0, 0, 0.3);
+}
+div.dt-buttons > .dt-button:hover:not(.disabled), div.dt-buttons > div.dt-button-split .dt-button:hover:not(.disabled) {
+     border: 0px solid #666 !important;
+
+}
