@@ -1,0 +1,16 @@
+---CSS
+buttons.dataTables.min.css
+jquery.dataTables.min.css
+
+---JS
+buttons.html5.min.js
+buttons.print.min.js
+dataTables.buttons.min.js
+jquery-3.7.0.js
+jquery.dataTables.min.js
+pdfmake.min.js
+szip.min.js
+vfs_fonts.js
+
+
+Aparte se necesitaria el bootstrap pero eso ya se tiene en el archivo original
